@@ -9,7 +9,11 @@ def load_model():
     model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5s_best.pt')
     return model
 
-def predict_image(image,model):
+model = load_model()
+
+image = '1_5.jpg'
+
+def predict_image(image):
     img = Image.open('test/' + image)
     results = model(img)
     pred_list = results.pandas().xyxy[0]['name'].to_numpy()
@@ -18,7 +22,4 @@ def predict_image(image,model):
         if i != 'Bullseye':
             pred = i
     return pred
-
-# model = load_model()
-# image = '1_5.jpg'
-# print(predict_image(image,model))
+print(predict_image(image))
